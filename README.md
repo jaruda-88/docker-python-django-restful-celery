@@ -5,4 +5,5 @@ django backend
 ```
 Django
 djangorestframework
+drf-spectacular
 ```
