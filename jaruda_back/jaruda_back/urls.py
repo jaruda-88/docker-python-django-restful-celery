@@ -13,13 +13,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from drf_spectacular.views import SpectacularJSONAPIView
+from drf_spectacular.views import SpectacularRedocView
+from drf_spectacular.views import SpectacularSwaggerView
+from drf_spectacular.views import SpectacularYAMLAPIView
+
 from django.contrib import admin
 from django.urls import path
-from todos.views import TodoListApi
-from todos.views import get_todo
+from todos.views import get_task
+from todos.views import TodoList
+
 
 urlpatterns = [
+
+    # swagger path
+    # Open API 자체를 조회 : json, yaml, 
+    path("docs/json/", SpectacularJSONAPIView.as_view(), name="schema-json"),
+    path("docs/yaml/", SpectacularYAMLAPIView.as_view(), name="swagger-yaml"),
+    # Open API Document UI로 조회: Swagger, Redoc
+    path("docs/swagger/", SpectacularSwaggerView.as_view(url_name="schema-json"), name="swagger-ui",),
+    path("docs/redoc/", SpectacularRedocView.as_view(url_name="schema-json"), name="redoc",),
+    
+    # api path
     path('admin/', admin.site.urls),
-    path('api/todos', TodoListApi.as_view()),
-    path('api/todo/<int:pk>', get_todo)
+    path('api/todos', TodoList.as_view()),
+    path('api/todos/<int:pk>', get_task),
+
 ]
