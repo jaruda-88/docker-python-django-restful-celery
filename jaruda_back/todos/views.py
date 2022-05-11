@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Todo
-from .serializers import TodoSerializer
+from .serializers import TodoSerializer, PostTodoSerializer
+from .schemas import *
 
 
 # Create your views here.
@@ -30,7 +31,9 @@ def get_task(request, pk):
         return Response(result)
 
 
+
 class TodoList(APIView):
+    @get_todos
     def get(self, request):
         try:
             todos = Todo.objects.all()
@@ -42,10 +45,11 @@ class TodoList(APIView):
         else:
             return Response(serializer.data)
 
-
-    def post(self, request):
+    
+    @post_todo
+    def post(self, request):    
         try:
-            serializer = TodoSerializer(data=request.data)
+            serializer = PostTodoSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
             else:
