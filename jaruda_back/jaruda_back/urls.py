@@ -20,8 +20,8 @@ from drf_spectacular.views import SpectacularYAMLAPIView
 
 from django.contrib import admin
 from django.urls import path
-# from todos.views import get_task
 from todos.views import TodoList
+# from todos.views import get_task
 
 
 urlpatterns = [
