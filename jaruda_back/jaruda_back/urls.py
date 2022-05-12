@@ -20,7 +20,7 @@ from drf_spectacular.views import SpectacularYAMLAPIView
 
 from django.contrib import admin
 from django.urls import path
-from todos.views import get_task
+# from todos.views import get_task
 from todos.views import TodoList
 
 
@@ -37,6 +37,6 @@ urlpatterns = [
     # api path
     path('admin/', admin.site.urls),
     path('api/todos', TodoList.as_view()),
-    path('api/todos/<int:pk>', get_task),
+    # path('api/todos/<int:pk>', get_task),
 
 ]

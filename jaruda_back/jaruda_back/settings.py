@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# swagger 문서화 설정
 # INSTALL_APPS 위에
 SPECTACULAR_SETTINGS = {
     # General schema metadata. Refer to spec for valid inputs
@@ -51,7 +52,7 @@ SPECTACULAR_SETTINGS = {
     # Optional: MUST contain "name", MAY contain URL
     # 'LICENSE': {
     #     'name': 'MIT License',
-    #     'url': 'https://github.com/KimSoungRyoul/DjangoBackendProgramming/blob/main/LICENSE',
+    #     'url': '',
     # },
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,  # OAS3 Meta정보 API를 비노출 처리합니다.

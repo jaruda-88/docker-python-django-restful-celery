@@ -8,12 +8,21 @@ class TodoSerializer(serializers.ModelSerializer):
         fields = '__all__' 
 
 
-class PostTodoSerializer(serializers.ModelSerializer):
-    task = serializers.CharField(max_length=100, help_text="할일", default="task")
+class CreateTodoSerializer(serializers.ModelSerializer):
+    task = serializers.CharField(max_length=100, help_text="할일", default="수공~")
 
     class Meta:
         model = Todo
         fields = ['id', 'task', 'create_at']
+
+
+class FixTodoSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+    task = serializers.CharField(max_length=100, help_text="할일", default="수공~")
+
+    class Meta:
+        model = Todo
+        fields = ['id', 'task']
 
 
     
