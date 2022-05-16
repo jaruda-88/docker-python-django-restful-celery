@@ -1,0 +1,9 @@
+.git
+.gitignore
+.dockerignore
+__pycache__
+.pytest_cache
+.python-version
+img
+README.md
+db.sqlite3
