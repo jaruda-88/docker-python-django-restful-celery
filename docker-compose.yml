@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  p3db:
+    image: mariadb
+    restart: always
+    container_name: project3_db
+    ports:
+      - "33060:3306"
+    # expose:
+    #   - "8765" 
+    volumes:
+      - ./databases/data:/var/lib/mysql
+      # - ./databases/mariadbcnf.d:/etc/mysql/conf.d
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_ROOT_PASSWORD: project3
+      MYSQL_DATABASE: project3
+    networks:
+      - default 
+      - p3_net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+
+  p3api:
+    depends_on:
+      p3db:
+        condition: service_healthy
+    tty: true
+    image: django
+    restart: always
+    container_name: project3_api
+    build:
+      context: ./jaruda_back
+    command: >
+      bash -c "
+      python manage.py makemigrations
+      && python manage.py migrate
+      && python manage.py runserver 0.0.0.0:8000"  
+    networks:
+      - default 
+      - p3_net
+    ports:
+      - "8000:8000"
+    # expose:
+    #   - "8000" 
+
+
+networks:
+  p3_net:
+    driver: bridge

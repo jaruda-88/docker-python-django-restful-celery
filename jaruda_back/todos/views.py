@@ -23,7 +23,6 @@ class TodoList(APIView):
             if int(pk) == 0:
                 todos = Todo.objects.all()
                 serializer = TodoSerializer(todos, many=True)
-                print(todos)
                 result = serializer.data
             else:
                 target = Todo.objects.filter(pk=pk).first()
@@ -79,8 +78,8 @@ class TodoList(APIView):
     @extn_delete_todo
     def delete(self, request):
         ''' DELETE 할일 삭제 '''
-        pk = request.GET.get('id')
         try:
+            pk = request.GET.get('id')
             target = Todo.objects.filter(pk=pk)
             if not target:
                 raise Exception('Not found')

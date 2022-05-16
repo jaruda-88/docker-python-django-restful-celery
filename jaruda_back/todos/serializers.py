@@ -16,7 +16,7 @@ class CreateTodoSerializer(serializers.ModelSerializer):
         fields = ['id', 'task', 'create_at']
 
 
-class FixTodoSerializer(serializers.ModelSerializer):
+class EditTodoSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
     task = serializers.CharField(max_length=100, help_text="할일", default="수공~")
 

@@ -3,7 +3,7 @@ from drf_spectacular.types import OpenApiTypes
 from .serializers import (
     CreateTodoSerializer,
     TodoSerializer,
-    FixTodoSerializer
+    EditTodoSerializer
 )
 
 
@@ -34,7 +34,7 @@ extn_read_todos = extend_schema(
 extn_edit_todo = extend_schema(
     summary='modify task',
     tags=['todos'],
-    request=FixTodoSerializer,
+    request=EditTodoSerializer,
     responses={200: 'Ok'},
 )
 
