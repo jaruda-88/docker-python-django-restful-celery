@@ -16,11 +16,14 @@ services:
       TZ: Asia/Seoul
       MYSQL_ROOT_PASSWORD: project3
       MYSQL_DATABASE: project3
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: project3
     networks:
       - default 
       - p3_net
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: "/usr/bin/mysql --user=root --password=project3 --execute \"SHOW DATABASES;\""
+      interval: 2s
       timeout: 20s
       retries: 10
 
