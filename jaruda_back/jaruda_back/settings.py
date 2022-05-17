@@ -17,7 +17,7 @@ class BuildType(Enum):
     SERVER = 1
     DEVELOP = 2
 
-BUILD = BuildType.SERVER
+BUILD = BuildType.DEVELOP
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -70,6 +70,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 INSTALLED_APPS = [
+    'django_celery_results',
     'rest_framework',       # rest api
     'drf_spectacular',      # swagger
     'todos',                # api
