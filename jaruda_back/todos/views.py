@@ -27,9 +27,7 @@ class TodoList(APIView):
             else:
                 target = Todo.objects.filter(pk=pk).first()
                 serializer = TodoSerializer(target)
-                result = [] if not target else serializer.data
-        except todos.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)    
+                result = [] if not target else serializer.data   
         except Exception as ex:
             return Response(ex.args[0], status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -67,8 +65,6 @@ class TodoList(APIView):
                 serializer.save()
             else:
                 raise Exception(serializer.errors)
-        except target.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
         except Exception as ex:
             return Response(ex.args[0], status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -84,8 +80,6 @@ class TodoList(APIView):
             if not target:
                 raise Exception('Not found')
             target.delete()
-        except target.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
         except Exception as ex:
             return Response(ex.args[0], status=status.HTTP_400_BAD_REQUEST)
         else:
