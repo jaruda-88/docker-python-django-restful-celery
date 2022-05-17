@@ -4,6 +4,6 @@
 __pycache__
 .pytest_cache
 .python-version
-img
 README.md
 db.sqlite3
+0001_initial.py
