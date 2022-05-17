@@ -25,9 +25,9 @@ class TodoList(APIView):
                 serializer = TodoSerializer(todos, many=True)
                 result = serializer.data
             else:
-                target = Todo.objects.filter(pk=pk).first()
-                serializer = TodoSerializer(target)
-                result = [] if not target else serializer.data   
+                todos = Todo.objects.filter(pk=pk).first()
+                serializer = TodoSerializer(todos)
+            result = [] if not todos else serializer.data   
         except Exception as ex:
             return Response(ex.args[0], status=status.HTTP_400_BAD_REQUEST)
         else:
