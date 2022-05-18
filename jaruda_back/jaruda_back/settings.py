@@ -17,7 +17,7 @@ class BuildType(Enum):
     SERVER = 1
     DEVELOP = 2
 
-BUILD = BuildType.DEVELOP
+BUILD = BuildType.SERVER
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,6 +36,13 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+
+# Celery settings
+CELERY_BROKER_URL = 'amqp://guest:guest@192.168.1.69:5672'
+# Celery Configuration Options
+CELERY_TIMEZONE = "Asia/Seoul"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 # swagger 문서화 설정
 # INSTALL_APPS 위에
@@ -70,7 +77,6 @@ SPECTACULAR_SETTINGS = {
 }
 
 INSTALLED_APPS = [
-    'django_celery_results',
     'rest_framework',       # rest api
     'drf_spectacular',      # swagger
     'todos',                # api
@@ -182,3 +188,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

@@ -11,6 +11,7 @@ from .schemas import (
     extn_edit_todo,
     extn_delete_todo
 )
+from .tasks import print_todo
 
 
 # Create your views here.
@@ -23,6 +24,8 @@ class TodoList(APIView):
             if int(pk) == 0:
                 todos = Todo.objects.all()
                 serializer = TodoSerializer(todos, many=True)
+                for todo in todos:
+                    print_todo.delay(todo.task)
                 result = serializer.data
             else:
                 todos = Todo.objects.filter(pk=pk).first()
