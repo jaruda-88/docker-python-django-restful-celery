@@ -16,5 +16,13 @@ RUN apt-get update && apt-get -y install \
 WORKDIR /app
 COPY . /app
 
+# 리콰이어먼트
 COPY requirements.txt ./
 RUN pip install --upgrade pip && pip3 install -r requirements.txt
+
+# 슈퍼바이저
+RUN apt-get install supervisor -y
+COPY supervisord.conf ./
+RUN mkdir -p /app/logs
+# CMD ["supervisord", "-c", "supervisord.conf"]
+

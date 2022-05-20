@@ -38,9 +38,9 @@ services:
       - RABBITMQ_HOST=rabbitmq
     command: >
       bash -c "
-      python manage.py makemigrations
-      && python manage.py migrate
-      && python manage.py runserver 0.0.0.0:8000"  
+      python manage.py makemigrations && 
+      python manage.py migrate && 
+      python manage.py runserver 0.0.0.0:8000"  
     networks:
       - default 
       - p3_net
@@ -63,18 +63,18 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  worker:
-    restart: unless-stopped
-    container_name: project3_celery_worker
-    image: django
-    environment:
-      - RABBITMQ_USER=guest
-      - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_HOST=rabbitmq
-    command: >
-      bash -c "celery -A jaruda_back worker --loglevel=info"
-    depends_on:
-      - p3api
+  # worker:
+  #   restart: unless-stopped
+  #   container_name: project3_celery_worker
+  #   image: django
+  #   environment:
+  #     - RABBITMQ_USER=guest
+  #     - RABBITMQ_PASSWORD=guest
+  #     - RABBITMQ_HOST=rabbitmq
+  #   command: >
+  #     bash -c "celery -A jaruda_back worker --loglevel=info"
+  #   depends_on:
+  #     - p3api
 
   # beat:
   #   restart: unless-stopped
