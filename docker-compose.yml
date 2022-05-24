@@ -32,15 +32,17 @@ services:
     container_name: project3_api
     build:
       context: ./jaruda_back
-    environment:
-      - RABBITMQ_USER=guest
-      - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_HOST=rabbitmq
+    # environment:
+    #   - RABBITMQ_USER=guest
+    #   - RABBITMQ_PASSWORD=guest
+    #   - RABBITMQ_HOST=rabbitmq
     command: >
       bash -c "
       python manage.py makemigrations && 
       python manage.py migrate && 
-      python manage.py runserver 0.0.0.0:8000"  
+      python manage.py runserver 0.0.0.0:8000" 
+    # volumes:
+    #   - ./supervisord.conf:/etc/supervisor/conf.d/supervisord.conf 
     networks:
       - default 
       - p3_net
@@ -59,22 +61,28 @@ services:
     environment:
       - RABBITMQ_USER=guest
       - RABBITMQ_PASSWORD=guest
+    networks:
+      - default 
+      - p3_net
     ports:
       - "5672:5672"
       - "15672:15672"
 
-  # worker:
-  #   restart: unless-stopped
-  #   container_name: project3_celery_worker
-  #   image: django
-  #   environment:
-  #     - RABBITMQ_USER=guest
-  #     - RABBITMQ_PASSWORD=guest
-  #     - RABBITMQ_HOST=rabbitmq
-  #   command: >
-  #     bash -c "celery -A jaruda_back worker --loglevel=info"
-  #   depends_on:
-  #     - p3api
+  worker:
+    restart: unless-stopped
+    container_name: project3_celery_worker
+    image: django
+    # environment:
+    #   - RABBITMQ_USER=guest
+    #   - RABBITMQ_PASSWORD=guest
+    #   - RABBITMQ_HOST=rabbitmq
+    command: >
+      bash -c "celery -A jaruda_back worker --loglevel=info"
+    networks:
+      - default 
+      - p3_net
+    depends_on:
+      - p3api
 
   # beat:
   #   restart: unless-stopped

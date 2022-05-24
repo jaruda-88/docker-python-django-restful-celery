@@ -12,13 +12,13 @@ app = Celery('jaruda_back')
 #   should have a `CELERY_` prefix.
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-app.conf.beat_schedule = {
+'''app.conf.beat_schedule = {
     'every-15-second': {
         'task': 'todos.tasks.beat_test',
         'schedule': 15,
 #        'args': (,)
     }
-}
+}'''
 
 app.autodiscover_tasks()
 
